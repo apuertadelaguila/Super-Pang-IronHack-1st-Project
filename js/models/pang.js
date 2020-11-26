@@ -23,10 +23,12 @@ class Pang {
 
         this.movement = {
             right: false,
-            left: false
+            left: false,
+            fire: false
         }
 
         this.drawCount = 0;
+        this.spears = [];
     }
 
     draw() {
@@ -45,6 +47,14 @@ class Pang {
         }
         this.drawCount++;
         this.animate();
+        
+        if(!this.movement.fire) {
+            this.spears.forEach(spear => {
+            spear.draw()
+            });
+        }
+
+       
     }
 
 
@@ -57,14 +67,20 @@ class Pang {
             case KEY_LEFT:
                 this.movement.left = state;
                 break;
+            case KEY_FIRE:
+                this.movement.fire = state;
+                this.spears.push(new Spear(this.ctx, this.x + 12, 0));
+                break;
         }
     }
 
     move() {
-        if (this.movement.right) {
-            this.vx = SPEED;
+        if (this.movement.fire) {
+            this.vx = 0;
         } else if (this.movement.left) {
             this.vx = -SPEED
+        } else if (this.movement.right) {
+            this.vx = SPEED;
         } else {
             this.vx = 0;
         }
@@ -79,10 +95,13 @@ class Pang {
     }
 
     animate() {
-        if (this.movement.right) {
-            this.animateSprite(1, 0, 2, 5);
+
+        if (this.movement.fire) {
+            this.resetAnimation();
         } else if (this.movement.left) {
             this.animateSprite(2, 0, 2, 5);
+        } else if (this.movement.right) {
+            this.animateSprite(1, 0, 2, 5);   
         } else {
             this.resetAnimation();
         }
