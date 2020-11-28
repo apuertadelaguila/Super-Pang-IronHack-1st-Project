@@ -7,6 +7,7 @@ class Ball {
         this.vy = vy;
         this.color = color;
         this.ay = 0.1;
+        this.destroy = false;
 
         this.ballSprite = new Image();
         this.ballSprite.src = `img/sprites/${color}balls.png`;
@@ -69,4 +70,5 @@ class Ball {
            
           }
     }
+
 }

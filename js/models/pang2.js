@@ -24,7 +24,7 @@ class Pang {
         this.movement = {
             right: false,
             left: false,
-            fire: true
+            fire: false
         }
 
         this.drawCount = 0;
@@ -47,6 +47,7 @@ class Pang {
         }
         this.drawCount++;
         this.animate();
+        this.clearSpears();
 
     }
 
@@ -61,19 +62,18 @@ class Pang {
                 this.movement.left = state;
                 break;
             case KEY_FIRE:
-                if (this.movement.fire) {
-                    this.fire();
-                    this.movement.fire = false
-                    setTimeout(() => {
-                        this.movement.fire = true
-                    }, 1500);
-                }
-                break;
+                this.movement.fire = state;
+                    this.fire()
+                    break;
+        
+                    
         }
     }
 
     move() {
-        if (this.movement.left) {
+        if (this.movement.fire) {
+            this.vx = 0;
+        } else if (this.movement.left) {
             this.vx = -SPEED
         } else if (this.movement.right) {
             this.vx = SPEED;
@@ -91,9 +91,9 @@ class Pang {
     }
 
     animate() {
-        if(!this.movement.fire) {
+        if (this.movement.fire) {
             this.resetAnimation()
-        }else if (this.movement.left) {
+        } else if (this.movement.left) {
             this.animateSprite(2, 0, 2, 5);
         } else if (this.movement.right) {
             this.animateSprite(1, 0, 2, 5);   
@@ -126,10 +126,14 @@ class Pang {
     }  
 
     fire() {
-        if (this.movement.fire) {
-            this.spears.push(new Spear(this.ctx, this.x + 12, 0));           
+        const canFire = this.spears.length === 0;
+        if (this.movement.fire && canFire) {
+            this.spears.push(new Spear(this.ctx, this.x + 12, 0));
+            console.log(this.spears);
         }
-        
     }
 
+    clearSpears() {
+        this.spears = this.spears.filter(spear => !spear.destroy)
+    }
 }

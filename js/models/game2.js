@@ -16,7 +16,6 @@ class Game {
             new Ball(this.ctx, 300, 100, 'blue', -2, 4),
             new Ball(this.ctx, 500, 100, 'green', 2, 4)
         ];
-        
 
         
     }
@@ -70,11 +69,25 @@ class Game {
             }
         })
 
+        this.balls.forEach(ball => {
+            this.pang.spears.forEach(spear => {
+                if(spear.collides(ball)) {
+                    ball.destroy = true;
+                    this.division()
+                }  
+            })
+            
+        })
     }
 
-    addBalls() {
+    division() {
+        this.balls = this.balls.filter(ball => !ball.destroy)
+        this.balls.push(new Ball(this.ctx, 200, 100, 'red', 2, 4))
+        console.log(this.balls)
 
     }
+
+    
 
     
 
