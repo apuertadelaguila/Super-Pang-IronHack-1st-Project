@@ -8,6 +8,8 @@ html, body {
 
 body * {
     box-sizing: border-box;
+    background-image: url(arcade.png);
+    background-position: center;
 }
 
 

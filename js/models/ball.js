@@ -54,22 +54,22 @@ class Ball {
             this.x = this.ctx.canvas.width - this.width;
             this.vx *= -1;
             
-          }
-          if(this.x <= 0) {
+        }
+        if(this.x <= 0) {
             this.x = 0 
             this.vx *= -1;
             
-          }
-          if(this.y + this.height >= this.ctx.canvas.height) {
-            this.y = this.ctx.canvas.height -this.height;
+        }
+        if(this.y + this.height >= this.ctx.canvas.height) {
+            this.y = this.ctx.canvas.height - this.height;
             this.vy *= -1;
             
-          }
-          if(this.y <= 0) {
+        }
+        if(this.y <= 0) {
             this.y = 0;
             this.vy *= -1;
            
-          }
+        }
     }
 
 }
