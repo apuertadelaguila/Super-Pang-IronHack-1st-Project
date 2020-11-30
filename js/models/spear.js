@@ -43,7 +43,7 @@ class Spear {
             );
             this.drawCount++;
             this.animate();
-            this.ctx.strokeRect(this.spearX, this.spearY, this.spearW, this.spearH)
+            /* this.ctx.strokeRect(this.spearX, this.spearY, this.spearW, this.spearH) */
             
             
 
@@ -62,10 +62,10 @@ class Spear {
 
     collides(element) {
         const collides = 
-            this.spearX + this.spearW > element.x + 20 &&
-            this.spearX < element.x + element.width - 20 &&
-            this.spearY + this.spearH > element.y + 20 &&
-            this.spearY < element.y + element.height - 20;
+            this.spearX + this.spearW > element.x &&
+            this.spearX < element.x + element.width &&
+            this.spearY + this.spearH > element.y &&
+            this.spearY < element.y + element.height;
             this.destroy = collides;
             return collides;
 

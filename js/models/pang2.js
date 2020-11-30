@@ -119,10 +119,10 @@ class Pang {
     }
 
     collides(element) {
-        return this.x + this.width > element.x + 60 &&
-            this.x < element.x + element.width - 60 &&
-            this.y + this.height > element.y + 60 &&
-            this.y < element.y + element.height - 60;
+        return this.x + this.width > element.x + 30 &&
+            this.x < element.x + element.width - 30 &&
+            this.y + this.height > element.y + 30 &&
+            this.y < element.y + element.height - 30;
     }  
 
     fire() {

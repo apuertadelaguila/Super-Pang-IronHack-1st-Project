@@ -1,19 +1,20 @@
 class Ball {
-    constructor(ctx, x, y, color, vx, vy) {
+    constructor(ctx, x, y, size, color, vx, vy) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
         this.color = color;
+        this.size = size;
         this.ay = 0.1;
         this.destroy = false;
 
         this.ballSprite = new Image();
-        this.ballSprite.src = `img/sprites/${color}balls.png`;
+        this.ballSprite.src = `img/sprites/balls/${size}${color}ball.png`;
         this.ballSprite.horizontalFrameIndex = 0;
         this.ballSprite.verticalFrameIndex = 0;
-        this.ballSprite.horizontalFrames = 4;
+        this.ballSprite.horizontalFrames = 1;
         this.ballSprite.verticalFrames = 1;
         this.ballSprite.isReady = false;
         this.ballSprite.onload = () => {
