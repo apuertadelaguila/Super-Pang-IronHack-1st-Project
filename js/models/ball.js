@@ -9,6 +9,8 @@ class Ball {
         this.size = size;
         this.ay = 0.1;
         this.destroy = false;
+        this.canBounce = true;
+        
 
         this.ballSprite = new Image();
         this.ballSprite.src = `img/sprites/balls/${size}${color}ball.png`;
@@ -24,6 +26,8 @@ class Ball {
             this.width = this.ballSprite.frameWidth;
             this.height = this.ballSprite.frameHeight;
         }
+        
+
         this.drawCount = 0;
     }
 
@@ -40,6 +44,7 @@ class Ball {
                 this.width,
                 this.height
             );
+            /* this.ctx.strokeRect(this.x, this.y, this.width, this.height) */
             this.drawCount++;
         }
     }
@@ -62,14 +67,35 @@ class Ball {
         }
         if(this.y + this.height >= this.ctx.canvas.height) {
             this.y = this.ctx.canvas.height - this.height;
-            this.vy *= -1;
-            
+            this.vy *= -1;  
         }
         if(this.y <= 0) {
             this.y = 0;
             this.vy *= -1;
-           
         }
     }
 
+    bounce(structure) {
+        if (this.canBounce) {
+            this.canBounce = false;
+            this.vy *= -1;
+            
+            if (this.x >= structure.x && this.vx <= 0) {
+                this.vx *= -1;
+            } else if (this.x <= structure.x && this.vx >= 0) {
+                this.vx *= -1;
+            }
+ 
+         setTimeout(() => this.canBounce = true, 500);
+            
+        }
+    }
+
+    split(balls) {
+        if (this.size <= 3) {
+            this.size++;
+            balls.push(new Ball(this.ctx, this.x + (this.width / 2), this.y, this.size, this.color, 3, -3));
+            balls.push(new Ball(this.ctx, this.x + (this.width / 2), this.y, this.size, this.color, -3, -3));
+        }
+    }
 }

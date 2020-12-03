@@ -93,8 +93,8 @@ class Pang {
                 break;
             case KEY_FIRE:
                 this.movement.fire = state;
-                    this.fire()
-                    break;
+                this.fire()
+                break;
         
                     
         }

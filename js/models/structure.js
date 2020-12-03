@@ -15,8 +15,8 @@ class Structure {
             this.structureSprite.isReady = true;
             this.structureSprite.frameWidth = Math.floor(this.structureSprite.width / this.structureSprite.horizontalFrames);
             this.structureSprite.frameHeight = Math.floor(this.structureSprite.height / this.structureSprite.verticalFrames);
-            this.structureSprite.width = this.structureSprite.frameWidth;
-            this.structureSprite.height = this.structureSprite.frameHeight;
+            this.width = this.structureSprite.frameWidth;
+            this.height = this.structureSprite.frameHeight;
         }
 
         this.drawCount = 0;
@@ -32,18 +32,19 @@ class Structure {
                 this.structureSprite.frameHeight,
                 this.x,
                 this.y,
-                this.structureSprite.width,
-                this.structureSprite.height
+                this.width,
+                this.height
             )
+            /* this.ctx.strokeRect(this.x, this.y, this.width, this.height) */
         }
         this.drawCount++;
 
     }
 
     collides(element) {
-        return this.x + this.structureSprite.width > element.x + 30 &&
+        return this.x + this.width > element.x + 30 &&
             this.x < element.x + element.width - 30 &&
-            this.y + this.structureSprite.height > element.y + 30 &&
+            this.y + this.height > element.y + 30 &&
             this.y < element.y + element.height - 30;
             
     }

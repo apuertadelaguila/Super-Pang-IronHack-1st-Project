@@ -17,9 +17,9 @@ class Game {
         this.background = new Background(this.ctx);
         this.pang = new Pang(this.ctx, (this.canvas.width / 2), 450);
         this.balls = [
-            new Ball(this.ctx, 100, 100, '1', 'red', 2, 4),
-            /* new Ball(this.ctx, 300, 100, '1', 'blue', -2, 4), */
-            /* new Ball(this.ctx, 500, 100, '1', 'green', 2, 4) */
+            new Ball(this.ctx, 100, 100, 1, 'red', 2, 4),
+            /* new Ball(this.ctx, 300, 100, 1, 'blue', -2, 4), */
+            /* new Ball(this.ctx, 500, 100, 1, 'green', 2, 4) */
         ];
         this.structures = [
             new Structure(this.ctx, 300, 300),
@@ -92,63 +92,19 @@ class Game {
                     ball.destroy = true;
                     this.explosionSound.play();
                     this.balls = this.balls.filter(ball => !ball.destroy)
-                    if (ball.size === '1' && ball.color === 'red') {
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '2', 'red', 3, -3))
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '2', 'red', -3, -3))  
-                    } else if (ball.size === '2' && ball.color === 'red') {
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '3', 'red', 3, -4));
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '3', 'red', -3, -4));
-                    } else if (ball.size === '3' && ball.color === 'red') {
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '4', 'red', 3, -4));
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '4', 'red', -3, -4));
-                    } else if(ball.size === '1' && ball.color === 'blue') {
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '2', 'blue', 3, -3));
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '2', 'blue', -3, -3));
-                    } else if (ball.size === '2' && ball.color === 'blue') {
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '3', 'blue', 3, -4));
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '3', 'blue', -3, -4));
-                    } else if (ball.size === '3' && ball.color === 'blue') {
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '4', 'blue', 3, -4));
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '4', 'blue', -3, -4));
-                    } else if(ball.size === '1' && ball.color === 'green') {
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '2', 'green', 3, -3));
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '2', 'green', -3, -3));
-                    } else if (ball.size === '2' && ball.color === 'green') {
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '3', 'green', 3, -4));
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '3', 'green', -3, -4));
-                    } else if (ball.size === '3' && ball.color === 'green') {
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '4', 'green', 3, -4));
-                        this.balls.push(new Ball(this.ctx, ball.x + (ball.width / 2), ball.y, '4', 'green', -3, -4));
-                    } else if (ball.size === '4') {;
-                        if (this.balls.length === 0) {
-                            this.end();
-                        } 
-                    }
+                    ball.split(this.balls);
                     this.pang.clearSpears()
                 }  
             })
             this.structures.forEach(structure => {
             
                 if (structure.collides(ball)) {
-                 if (ball.x + ball.width >= structure.width) {
-                     
-                     ball.vx *= -1;  
-                 } else if (ball.x <= structure.x) {
-                     
-                     ball.vx *= -1;
-                     
-                 } else if (ball.y + ball.height >= structure.height) {
-                     
-                     ball.vy *= -1;
-                     
-                 } else if (ball.y <= structure.y) {
-                     
-                     ball.vy *= -1; 
-                 }
+                    ball.bounce(structure);
                 }
-             
          })
-            
+            if (this.balls.length === 0) {
+                this.end();
+            }     
         })
         
     }
