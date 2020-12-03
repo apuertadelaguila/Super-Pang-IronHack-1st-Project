@@ -63,14 +63,10 @@ class Spear {
     collides(element) {
         const collides = 
             this.spearX + this.spearW > element.x &&
-            this.spearX < element.x + element.width &&
+            this.spearX < element.x + element.ballSprite.width &&
             this.spearY + this.spearH > element.y &&
-            this.spearY < element.y + element.height;
+            this.spearY < element.y + element.ballSprite.height;
             this.destroy = collides;
             return collides;
-
-    }
-
-
-    
+    } 
 }
