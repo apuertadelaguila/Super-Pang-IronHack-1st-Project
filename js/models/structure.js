@@ -7,7 +7,7 @@ class Structure {
         this.structureSprite = new Image();
         this.structureSprite.src = 'img/sprites/structures.png';
         this.structureSprite.isReady = false;
-        this.structureSprite.horizontalFrames = 4;
+        this.structureSprite.horizontalFrames = 5;
         this.structureSprite.verticalFrames = 1;
         this.structureSprite.horizontalFrameIndex = 0;
         this.structureSprite.verticalFrameIndex = 0;
@@ -36,17 +36,31 @@ class Structure {
                 this.width,
                 this.height
             )
-            this.ctx.strokeRect(this.x, this.y, this.width, this.height)
+            /* this.ctx.strokeRect(this.x, this.y, this.width, this.height) */
         }
+        if (this.destroy) {
+            this.animate(0, 0, 4, 8)
+        }
+       
         this.drawCount++;
 
     }
 
     collides(element) {
-        return this.x + this.width > element.x + 30 &&
-            this.x < element.x + element.width - 30 &&
-            this.y + this.height > element.y + 30 &&
-            this.y < element.y + element.height - 30;
+        return this.x + this.width > element.x + 15 &&
+            this.x < element.x + element.width - 15 &&
+            this.y + this.height > element.y + 15 &&
+            this.y < element.y + element.height - 15;
             
+    }
+
+    animate(initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency) {
+        if(this.structureSprite.verticalFrameIndex != initialVerticalIndex) {
+            this.structureSprite.verticalFrameIndex = initialVerticalIndex;
+            this.structureSprite.horizontalFrameIndex = initialHorizontalIndex;
+        } else if (this.drawCount % frequency === 0) {
+            this.structureSprite.horizontalFrameIndex = (this.structureSprite.horizontalFrameIndex + 1) % maxHorizontalIndex;
+            this.drawCount = 0;
+        }
     }
 }

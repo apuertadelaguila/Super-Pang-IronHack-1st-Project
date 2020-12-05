@@ -25,3 +25,13 @@ body * {
     border: 15px solid transparent;
     border-image: url(bg-border.png) 20;
 }
+
+.start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../img/backgrounds/bg-montefuji.png);
+    background-repeat: no-repeat;
+    position: relative;
+    
+}

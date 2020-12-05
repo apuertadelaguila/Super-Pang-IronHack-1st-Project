@@ -20,10 +20,30 @@ class Game {
             new Ball(this.ctx, 100, 100, 1, 'red', 2, 4),
            /*  new Ball(this.ctx, 300, 100, 1, 'blue', -2, 4), */
             /* new Ball(this.ctx, 500, 100, 1, 'green', 2, 4) */
+            new Ball(this.ctx, 100, 50, 4, 'red', 2, 4),
+            new Ball(this.ctx, 200, 50, 4, 'red', 2, 4),
+            new Ball(this.ctx, 300, 50, 4, 'red', 2, 4),
+            new Ball(this.ctx, 400, 50, 4, 'red', 2, 4),
+            new Ball(this.ctx, 500, 50, 4, 'red', 2, 4),
         ];
         this.structures = [
             new Structure(this.ctx, 300, 300),
-            new Structure(this.ctx, 600, 300)
+            new Structure(this.ctx, 600, 300),
+            new Structure(this.ctx, 20, 80),
+            new Structure(this.ctx, 100, 80),
+            new Structure(this.ctx, 180, 80),
+            new Structure(this.ctx, 260, 80),
+            new Structure(this.ctx, 340, 80),
+            new Structure(this.ctx, 420, 80),
+            new Structure(this.ctx, 500, 80),
+            new Structure(this.ctx, 580, 80),
+            new Structure(this.ctx, 660, 80),
+            new Structure(this.ctx, 740, 80),
+            new Structure(this.ctx, 820, 80),
+            new Structure(this.ctx, 900, 80),
+            
+            
+
         ]
 
         this.smokes = [];
@@ -106,7 +126,7 @@ class Game {
                     this.ballCollision = true;
                     ball.destroy = true;
                     this.explosionSound.play();
-                    this.smokes.push(new Smoke(this.ctx, ball.x + ball.width, ball.y + ball.height))
+                    this.smokes.push(new Smoke(this.ctx, (ball.x + ball.width / 2) - 50, (ball.y + ball.height / 2) - 50))
                     setTimeout(() => {
                         this.smokes.pop(smoke => smoke)
                     }, 500)
@@ -136,7 +156,8 @@ class Game {
             this.pang.spears.forEach(spear => {
                 if (spear.collides(structure)) {
                     structure.destroy = true;
-                    this.structures = this.structures.filter(structure => !structure.destroy);
+                    setTimeout(() => this.structures = this.structures.filter(structure => !structure.destroy), 400)
+                    
                     this.pang.clearSpears();
                     console.log(structure)
                     console.log(spear.destroy)
