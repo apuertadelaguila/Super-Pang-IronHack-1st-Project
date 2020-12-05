@@ -23,26 +23,11 @@ class Ball {
             this.ballSprite.isReady = true;
             this.ballSprite.frameWidth = Math.floor(this.ballSprite.width / this.ballSprite.horizontalFrames);
             this.ballSprite.frameHeight = Math.floor(this.ballSprite.height / this.ballSprite.verticalFrames);
-            this.ballSprite.width = this.ballSprite.frameWidth;
-            this.ballSprite.height = this.ballSprite.frameHeight;
+            this.width = this.ballSprite.frameWidth;
+            this.height = this.ballSprite.frameHeight;
         }
 
-        this.smoke = new Image();
-        this.smoke.src = `img/sprites/smokes.png`;
-        this.smoke.horizontalFrameIndex = 0;
-        this.smoke.verticalFrameIndex = 0;
-        this.smoke.horizontalFrames = 5;
-        this.smoke.verticalFrames = 1;
-        this.smoke.isReady = false;
-        this.smoke.onload = () => {
-            this.smoke.isReady = true;
-            this.smoke.frameWidth = Math.floor(this.smoke.width / this.smoke.horizontalFrames);
-            this.smoke.frameHeight = Math.floor(this.smoke.height / this.smoke.verticalFrames);
-            this.smoke.width = this.smoke.frameWidth;
-            this.smoke.height = this.smoke.frameHeight;
-        }
-
-        this.drawCount = 0;
+        
     }
 
     draw() {
@@ -55,8 +40,8 @@ class Ball {
                 this.ballSprite.frameHeight,
                 this.x,
                 this.y,
-                this.ballSprite.width,
-                this.ballSprite.height
+                this.width,
+                this.height
             );
 
            /*  this.ctx.strokeRect(this.x, this.y, this.ballSprite.width, this.ballSprite.height)  */   
@@ -65,25 +50,7 @@ class Ball {
         this.drawCount++;
     }
 
-    drawSmoke() {
-        if (this.smoke.isReady && this.destroy) {
-            this.ctx.drawImage(
-                this.smoke,
-                this.smoke.frameWidth * this.smoke.horizontalFrameIndex,
-                this.smoke.frameHeight * this.smoke.verticalFrameIndex,
-                this.smoke.frameWidth,
-                this.smoke.frameHeight,
-                this.x - (this.smoke.frameWidth / 2) + (this.ballSprite.width / 2),
-                this.y - (this.smoke.frameHeight / 2) + (this.ballSprite.height / 2),
-                this.smoke.width,
-                this.smoke.height
-            ); 
-           /*  this.ctx.strokeRect(this.x, this.y, this.smoke.width, this.smoke.height) */
-        }
-        this.animateSmokes(0, 0, 4, 8)
-        this.drawCount++;
-        
-    }
+    
 
     move() {
         this.vy += this.ay
@@ -91,8 +58,8 @@ class Ball {
         this.y += this.vy;
         
 
-        if(this.x + this.ballSprite.width >= this.ctx.canvas.width) {
-            this.x = this.ctx.canvas.width - this.ballSprite.width;
+        if(this.x + this.width >= this.ctx.canvas.width) {
+            this.x = this.ctx.canvas.width - this.width;
             this.vx *= -1;
             
         }
@@ -101,8 +68,8 @@ class Ball {
             this.vx *= -1;
             
         }
-        if(this.y + this.ballSprite.height >= this.ctx.canvas.height) {
-            this.y = this.ctx.canvas.height - this.ballSprite.height;
+        if(this.y + this.height >= this.ctx.canvas.height) {
+            this.y = this.ctx.canvas.height - this.height;
             this.vy *= -1;  
         }
         if(this.y <= 0) {
@@ -129,18 +96,10 @@ class Ball {
 
     split() {
             return [
-                new Ball(this.ctx, this.x + (this.ballSprite.width / 2), this.y, this.size + 1, this.color, 3, -3),
-                new Ball(this.ctx, this.x + (this.ballSprite.width / 2), this.y, this.size + 1, this.color, -3, -3)
+                new Ball(this.ctx, this.x + (this.width / 2), this.y, this.size + 1, this.color, 3, -3),
+                new Ball(this.ctx, this.x + (this.width / 2), this.y, this.size + 1, this.color, -3, -3)
             ]
     }
 
-    animateSmokes(initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency) {
-        if(this.smoke.verticalFrameIndex != initialVerticalIndex) {
-            this.smoke.verticalFrameIndex = initialVerticalIndex;
-            this.smoke.horizontalFrameIndex = initialHorizontalIndex;
-        } else if (this.drawCount % frequency === 0) {
-            this.smoke.horizontalFrameIndex = (this.smoke.horizontalFrameIndex + 1) % maxHorizontalIndex;
-            this.drawCount = 0;
-        }
-    }
+    
 }

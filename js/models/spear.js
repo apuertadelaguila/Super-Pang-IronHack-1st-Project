@@ -19,7 +19,7 @@ class Spear {
             this.height = this.sprite.frameHeight + 130;
             this.spearX = this.x + 10;
             this.spearY = this.y;
-            this.spearW = this.width -20;
+            this.spearW = this.width - 20;
             this.spearH = this.height
         }
         this.drawCount = 0;
@@ -57,15 +57,15 @@ class Spear {
             this.drawCount = 0;
         }
         this.spearH = this.sprite.horizontalFrameIndex * this.height / this.sprite.horizontalFrames;
-        this.spearY = this.y + this.height - this.spearH;
+        this.spearY = this.y + this.height - this.spearH - 35;
     }
 
     collides(element) {
         const collides = 
             this.spearX + this.spearW > element.x &&
-            this.spearX < element.x + element.ballSprite.width &&
+            this.spearX < element.x + element.width &&
             this.spearY + this.spearH > element.y &&
-            this.spearY < element.y + element.ballSprite.height;
+            this.spearY < element.y + element.height;
             this.destroy = collides;
             return collides;
     } 

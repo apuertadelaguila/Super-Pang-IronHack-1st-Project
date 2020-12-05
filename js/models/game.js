@@ -18,13 +18,17 @@ class Game {
         this.pang = new Pang(this.ctx, (this.canvas.width / 2), 450);
         this.balls = [
             new Ball(this.ctx, 100, 100, 1, 'red', 2, 4),
-            new Ball(this.ctx, 300, 100, 1, 'blue', -2, 4),
+           /*  new Ball(this.ctx, 300, 100, 1, 'blue', -2, 4), */
             /* new Ball(this.ctx, 500, 100, 1, 'green', 2, 4) */
         ];
         this.structures = [
             new Structure(this.ctx, 300, 300),
             new Structure(this.ctx, 600, 300)
         ]
+
+        this.smokes = [];
+
+        this.ballCollision = false;
 
     }
 
@@ -41,6 +45,7 @@ class Game {
               this.move();
               this.draw();
               this.checkCollisions()
+              this.end();
               this.sound.play();
             }, this.fps)       
         }
@@ -62,10 +67,12 @@ class Game {
     }
 
     end() {
-        this.sound.pause();
-        this.stageClearSound.play();
-        setTimeout(() => this.stop(), 20)
-        
+        if (this.balls.length === 0 && !this.ballCollision) {
+            this.pang.winAnimation();
+            this.sound.pause();
+            this.stageClearSound.play();
+            setTimeout(() => this.stop(), 20)
+        }       
     }
 
     move() {
@@ -80,7 +87,7 @@ class Game {
         this.pang.spears.forEach(spear => spear.draw())
         this.pang.draw();
         this.structures.forEach(structure => structure.draw())
-        this.balls.forEach(ball => ball.drawSmoke())
+        this.smokes.forEach(smoke => smoke.draw())
     }
 
 
@@ -96,30 +103,47 @@ class Game {
         this.balls.forEach(ball => {
             this.pang.spears.forEach(spear => {
                 if(spear.collides(ball)) {
-                    
+                    this.ballCollision = true;
                     ball.destroy = true;
                     this.explosionSound.play();
-                   
-                    this.balls = this.balls.filter(ball => !ball.destroy);
+                    this.smokes.push(new Smoke(this.ctx, ball.x + ball.width, ball.y + ball.height))
+                    setTimeout(() => {
+                        this.smokes.pop(smoke => smoke)
+                    }, 500)
                     
+                    this.balls = this.balls.filter(ball => !ball.destroy);
                    
                     if (ball.size <= 3) {
-                        this.balls = this.balls.concat(ball.split())
+                        setTimeout(() => {
+                            this.ballCollision = false;
+                            this.balls = this.balls.concat(ball.split())
+                        },300)
+                    } else {
+                        this.ballCollision = false;
                     }
-                    this.pang.clearSpears()
-                    console.log(this.balls)
+                    this.pang.clearSpears();
+                    
                 }
             })
             this.structures.forEach(structure => {
-            
+                
                 if (structure.collides(ball)) {
                     ball.bounce(structure);
                 }
-         })
-            if (this.balls.length === 0) {
-                this.pang.winAnimation();
-                this.end();
-            }     
-        })    
+         })      
+        })
+        this.structures.forEach(structure => {
+            this.pang.spears.forEach(spear => {
+                if (spear.collides(structure)) {
+                    structure.destroy = true;
+                    this.structures = this.structures.filter(structure => !structure.destroy);
+                    this.pang.clearSpears();
+                    console.log(structure)
+                    console.log(spear.destroy)
+                }
+            })
+            
+        })   
+        
     }
 }
