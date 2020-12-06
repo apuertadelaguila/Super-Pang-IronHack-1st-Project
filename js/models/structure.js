@@ -47,11 +47,10 @@ class Structure {
     }
 
     collides(element) {
-        return this.x + this.width > element.x + 15 &&
-            this.x < element.x + element.width - 15 &&
-            this.y + this.height > element.y + 15 &&
-            this.y < element.y + element.height - 15;
-            
+        return this.x + this.width > element.x + ROUND_CORNER_SPACE &&
+            this.x < element.x + element.width - ROUND_CORNER_SPACE &&
+            this.y + this.height > element.y + ROUND_CORNER_SPACE &&
+            this.y < element.y + element.height - ROUND_CORNER_SPACE;     
     }
 
     animate(initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency) {

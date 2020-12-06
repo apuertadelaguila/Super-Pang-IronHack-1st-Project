@@ -17,21 +17,103 @@ body * {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     height: 100%;
 }
 
 #canvas-game {
     border: 15px solid transparent;
     border-image: url(bg-border.png) 20;
+    display: none;
 }
+
+.score {
+    width: 10%;
+    display: none;
+    /* background-color: blue; */
+    position: relative;
+    transform: translate(25%, 200%);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bolder;
+    font-size: 25px;
+    padding: 0;
+    margin: 0;
+}
+
 
 .start {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(../img/backgrounds/bg-montefuji.png);
+    flex-direction: column;
+    background-image: url(../img/backgrounds/startWindow.png);
     background-repeat: no-repeat;
     position: relative;
+    height: 100%;
+    width: 100%;
     
 }
+
+.restart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../img/backgrounds/gameOver.png);
+    background-repeat: no-repeat;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.start button {
+    margin-top: 450px;
+    width: 15%;
+    background-color: #0000FF;
+    border: none;
+    border-radius: 12px;
+}
+
+.start button :hover {
+    box-shadow: 0 0 12px rgba(70,150,240,0.7) inset;
+    border-radius: 5px;
+}
+
+.restart button {
+    margin-top: 450px;
+    width: 15%;
+    background-color: #000098;
+    border: none;
+    border-radius: 12px;
+}
+
+.restart button :hover {
+    box-shadow: 0 0 12px rgba(70,150,240,0.7) inset;
+    border-radius: 5px;
+}
+
+.win {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-image: url(../img/backgrounds/youWonWindow.png);
+    background-repeat: no-repeat;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.win button {
+    background-color: #0000FF;
+    
+    margin: 1%;
+    border-radius: 12px;
+    border: transparent;
+}
+
+.win > button :hover {
+    box-shadow: 0 0 12px rgba(70,150,240,0.7) inset;
+}
+
+

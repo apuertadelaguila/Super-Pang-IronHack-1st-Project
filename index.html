@@ -7,11 +7,23 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <!-- <div class="start">
-        <button>START</button>
-    </div> -->
+    
     <div class="game-container">
-        <canvas id="canvas-game"></canvas>
+        <div class="start">
+            <button><img src="img/backgrounds/startGame.png" alt=""></button>
+        </div>
+        <div class="restart">
+            <button><img src="img/backgrounds/continueButton.png" alt=""></button>
+        </div>
+        <div class="win">
+            <button><img src="img/backgrounds/scores.png" alt=""></button>
+            <button><img src="img/backgrounds/reload.png" alt=""></button>
+        </div>
+        <div>
+            <p class="score">Score:<span>0</span></p>
+            <canvas id="canvas-game"></canvas>
+        </div>
+        
     </div>
 
     <script src= 'js/models/constants.js'></script>

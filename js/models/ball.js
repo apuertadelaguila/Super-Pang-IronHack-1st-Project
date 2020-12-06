@@ -76,20 +76,32 @@ class Ball {
             this.y = 0;
             this.vy *= -1;
         }
+        
+        if (this.vy >= 0) {
+           this.vy = Math.min(7, this.vy);
+        } else {
+            this.vy = Math.max(-7, this.vy);
+        }
+        /* console.log(this.vy) */
     }
 
     bounce(structure) {
         if (this.canBounce) {
             this.canBounce = false;
             this.vy *= -1;
-            
+            /* this.y += this.vy > 0 ? ROUND_CORNER_SPACE : -ROUND_CORNER_SPACE; */
+            if (this.y <= structure.y) {
+                this.y = structure.y - this.height -4; 
+            } else {
+                this.y = structure.y + structure.height;
+            }
             if (this.x >= structure.x && this.vx <= 0) {
                 this.vx *= -1;
             } else if (this.x <= structure.x && this.vx >= 0) {
                 this.vx *= -1;
             }
  
-         setTimeout(() => this.canBounce = true, 500);
+         setTimeout(() => this.canBounce = true, 10);
             
         }
     }
