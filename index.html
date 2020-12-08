@@ -8,19 +8,25 @@
 </head>
 <body>
     
-    <div class="game-container">
-        <div class="start">
-            <button><img src="img/backgrounds/startGame.png" alt=""></button>
+    <div id="game-container">
+        <div id="start" class="game-menu">
+            <button class="btn"><img src="img/backgrounds/startGame.png" alt=""></button>
         </div>
-        <div class="restart">
-            <button><img src="img/backgrounds/continueButton.png" alt=""></button>
+        <div id="restart" class="game-menu">
+            <p class="scoreGameOver"></p>
+            <button class="btn"><img src="img/backgrounds/continueButton.png" alt=""></button>
         </div>
-        <div class="win">
-            <button><img src="img/backgrounds/scores.png" alt=""></button>
-            <button><img src="img/backgrounds/reload.png" alt=""></button>
+        <div id="win" class="game-menu">
+            <button class="btn"><img src="img/backgrounds/scores.png" alt=""></button>
+            <button class="btn"><img src="img/backgrounds/reload.png" alt=""></button>
+            <p class="scoreWin"></p>
+        </div>
+        <div id="next" class="game-menu">
+            <button class="btn"><img src="img/backgrounds/nextLevel.png" alt=""></button>
+            <p class="scoreNext"></p>
         </div>
         <div>
-            <p class="score">Score:<span>0</span></p>
+            <p class="score"></p>
             <canvas id="canvas-game"></canvas>
         </div>
         

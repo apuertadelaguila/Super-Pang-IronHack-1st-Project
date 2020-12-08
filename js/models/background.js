@@ -1,5 +1,5 @@
 class Background {
-    constructor(ctx) {
+    constructor(ctx, level) {
         this.ctx = ctx;
         this.x = 0;
         this.y = 0;

@@ -148,9 +148,10 @@ class Pang {
         this.sprite.horizontalFrameIndex = 0;
     }
 
-    collidesAnimation() {
+    
+    loseAnimation() {
         this.sprite.verticalFrameIndex = 3;
-        this.sprite.maxHorizontalIndex = 0;
+        this.sprite.horizontalFrameIndex = 0;
     }
 
     winAnimation() {
