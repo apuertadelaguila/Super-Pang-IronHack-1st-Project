@@ -22,14 +22,13 @@ class Game {
         this.scoreByLevel = {};
 
         this.smokes = [];
-        
+
         this.ballCollision = false;
         this.nextLevel();
     }
 
     onKeyEvent(event) {
         this.pang.onKeyEvent(event);
-
     }
 
 
@@ -41,20 +40,19 @@ class Game {
                 this.checkStageComplete();
                 this.draw();
                 this.checkCollisions();
-                this.sound.play();
+                /* this.sound.play(); */
             }, this.fps)
-            console.log(this.level)
         }
     }
 
-    restart () {
+    restart() {
         this.stop();
         this.level = 0;
         this.scoreByLevel = {};
         this.ballCollision = false;
         this.nextLevel();
         this.start();
-        
+
     }
 
     clear() {
@@ -62,7 +60,6 @@ class Game {
     }
 
     stop() {
-        this.sound.pause();
         clearInterval(this.drawIntervalId);
         this.drawIntervalId = undefined;
     }
@@ -78,33 +75,37 @@ class Game {
             scoreGame.style.display = "none";
             scoreGameOver.style.display = "flex";
             scoreGameOver.innerText = `Score: ${this.totalScore()}`;
-            
+
         }, 3000)
-        
+
     }
 
-    checkStageComplete () {
+    checkStageComplete() {
         if (this.balls.length === 0 && !this.ballCollision) {
             this.pang.winAnimation();
             this.sound.pause();
             this.stageClearSound.play();
             this.stop();
-            setTimeout(() => { 
+            setTimeout(() => {
                 canvasInit.style.display = "none";
                 scoreGame.style.display = "none";
-                if (this.level == 2) {
+                if (this.totalScore() > 8000 && this.level == 2) {
+                    highScores.style.display = "flex";
+                    scoreAfterGame.innerText = `Score: ${this.totalScore()}`;
+                } else if (this.level == 2) {
                     winWindow.style.display = "flex";
                     scoreWin.innerText = `Score: ${this.totalScore()}`;
+                
                 } else {
                     nextWindow.style.display = "flex";
                     nextScore.style.display = "flex";
-                    nextScore.innerText = `Score: ${this.scoreByLevel[`${this.level}`]}`;
-                } 
+                    nextScore.innerText = `Score: ${this.scoreByLevel[this.level]}`;
+                }
             }, 3000)
         }
     }
 
-    
+
     move() {
         this.pang.move();
         this.balls.forEach(ball => ball.move());
@@ -174,74 +175,94 @@ class Game {
             this.pang.spears.forEach(spear => {
                 if (spear.collides(structure)) {
                     structure.destroy = true;
-                    this.score += 50;
+                    this.addScore(50);
                     setTimeout(() => this.structures = this.structures.filter(structure => !structure.destroy), 400)
                     this.pang.clearSpears();
-                    console.log(structure)
-                    console.log(spear.destroy)
-                    
                 }
             })
-            
-        })  
-        scoreGame.innerText = `SCORE: ${this.scoreByLevel[`${this.level}`] || 0}`;
+
+        })
+        scoreGame.innerText = `SCORE: ${this.scoreByLevel[this.level] || 0}`;
     }
 
-    nextLevel () {
+    nextLevel() {
         this.level++;
         this.pang = new Pang(this.ctx, (this.canvas.width / 2), 450);
         this.background = new Background(this.ctx, this.level);
-        switch(this.level) {
+        switch (this.level) {
             case 1:
                 this.balls = [
-                    new Ball(this.ctx, 100, 100, 4, 'red', 2, 4),
-                    /*  new Ball(this.ctx, 300, 100, 1, 'blue', -2, 4), */
-                    /* new Ball(this.ctx, 800, 100, 1, 'green', -2, 4),
+                    new Ball(this.ctx, 100, 100, 1, 'red', 2, 4),
+                    new Ball(this.ctx, 800, 100, 1, 'green', -2, 4),
                     new Ball(this.ctx, 100, 40, 4, 'red', 2, 0),
                     new Ball(this.ctx, 200, 40, 4, 'blue', -2, 0),
                     new Ball(this.ctx, 300, 40, 4, 'green', 2, 0),
-                    new Ball(this.ctx, 400, 40, 4, 'red', -2, 0),
-                    new Ball(this.ctx, 500, 40, 4, 'blue', 2, 0), */
+                    new Ball(this.ctx, 350, 40, 4, 'red', -2, 0),
+                    new Ball(this.ctx, 500, 40, 4, 'blue', 2, 0),
                 ];
                 this.structures = [
-                    /* new Structure(this.ctx, 150, 420),
-                    new Structure(this.ctx, 600, 300), */
-                    new Structure(this.ctx, 20, 80),
-                    new Structure(this.ctx, 100, 80),
-                    new Structure(this.ctx, 180, 80),
-                    new Structure(this.ctx, 260, 80),
-                    new Structure(this.ctx, 340, 80),
-                    new Structure(this.ctx, 420, 80),
-                    new Structure(this.ctx, 500, 80),
-                    new Structure(this.ctx, 580, 80),
-                    new Structure(this.ctx, 660, 80),
-                    new Structure(this.ctx, 740, 80),
-                    new Structure(this.ctx, 820, 80),
-                    new Structure(this.ctx, 900, 80),
+                    new Structure(this.ctx, 20, 90),
+                    new Structure(this.ctx, 110, 90),
+                    new Structure(this.ctx, 200, 90),
+                    new Structure(this.ctx, 290, 90),
+                    new Structure(this.ctx, 380, 90),
+                    new Structure(this.ctx, 470, 90),
+                    new Structure(this.ctx, 560, 90),
+                    new Structure(this.ctx, 650, 90),
+                    new Structure(this.ctx, 740, 90),
+                    new Structure(this.ctx, 830, 90),
                 ];
                 break;
             case 2:
-                this.balls = [new Ball(this.ctx, 100, 100, 4, 'red', 2, 4)]
-                this.structures = [new Structure(this.ctx, 150, 420),
-                    new Structure(this.ctx, 600, 300),]
+                setTimeout(() => this.balls.push(new Ball(this.ctx, 100, 100, 2, 'blue', 2, 4)), 2000);
+                setTimeout(() => this.balls.push(new Ball(this.ctx, 630, 110, 2, 'green', -2, 4)), 4000);
+                setTimeout(() => this.balls.push(new Ball(this.ctx, 630, 110, 2, 'green', -2, 4)), 6000);
+                this.balls = [
+                    new Ball(this.ctx, 100, 100, 2, 'red', 2, 4),
+                ]
+                this.structures = [
+                    new Structure(this.ctx, 150, 420),
+                    new Structure(this.ctx, 400, 350),
+                    new Structure(this.ctx, 630, 210),
+                ]
                 break;
-                
-            
-            
+
+
+
         }
     }
 
     addScore(score) {
         if (this.scoreByLevel[`${this.level}`]) {
-            this.scoresByLevel[`${this.level}`] += score;
+            this.scoreByLevel[`${this.level}`] += score;
         } else {
             this.scoreByLevel[`${this.level}`] = score;
         }
-        
-     }
 
-     totalScore() {
+    }
+
+    totalScore() {
         return Object.values(this.scoreByLevel)
             .reduce((totalScore, levelScore) => totalScore + levelScore, 0);
     }
+
+    addTop10 () {
+        const score = {
+          score: game.totalScore(),
+          name: nameInput.value
+        }
+        top10.push(score);
+        top10.sort((a, b) => b.score - a.score);
+        top10.splice(10);
+        localStorage.setItem('top10', JSON.stringify(top10));
+        console.log(top10);
+        home();
+    }
+
+    showScores () {
+        startWindow.style.display = "none";
+        topScores.style.display = "flex";
+        displayRanking();
+    }
+
 }

@@ -10,21 +10,37 @@
     
     <div id="game-container">
         <div id="start" class="game-menu">
-            <button class="btn"><img src="img/backgrounds/startGame.png" alt=""></button>
+            <button class="btn"><img src="img/btns/startGame.png" alt=""></button>
+            <button class="btn"><img src="img/btns/bestScores.png" alt=""></button>
         </div>
+        
         <div id="restart" class="game-menu">
             <p class="scoreGameOver"></p>
-            <button class="btn"><img src="img/backgrounds/continueButton.png" alt=""></button>
+            <button class="btn"><img src="img/btns/continueButton.png" alt=""></button>
+            <button class="btn"><img src="img/btns/homeGameOver.png" alt=""></button>
         </div>
         <div id="win" class="game-menu">
-            <button class="btn"><img src="img/backgrounds/scores.png" alt=""></button>
-            <button class="btn"><img src="img/backgrounds/reload.png" alt=""></button>
+            <button class="btn"><img src="img/btns/reload.png" alt=""></button>
             <p class="scoreWin"></p>
         </div>
         <div id="next" class="game-menu">
-            <button class="btn"><img src="img/backgrounds/nextLevel.png" alt=""></button>
+            <button class="btn"><img src="img/btns/nextLevel.png" alt=""></button>
             <p class="scoreNext"></p>
         </div>
+
+        <div id="high-scores" class="game-menu">
+            <p></p>
+            <input type="text" placeholder="Your glorious Knight's Name!" />
+            <button class="btn"><img src="img/btns/saveButton.png" alt=""></button>  
+        </div>
+
+        <div id="ranking" class="game-menu">
+            <ol class="top10-list">
+
+            </ol>
+            <button class="btn"><img src="img/btns/homeButton.png" alt=""></button>
+        </div>
+
         <div>
             <p class="score"></p>
             <canvas id="canvas-game"></canvas>
