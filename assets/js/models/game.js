@@ -11,9 +11,11 @@ class Game {
         this.mainAudio = new Audio('assets/sounds/ModeSelect.mp3');
         this.sound = new Audio('assets/sounds/02 Stage 1.mp3');
         this.sound2 = new Audio('assets/sounds/stage2.mp3');
+        this.sound3 = new Audio('assets/sounds/stage3.mp3');
         this.gameOverSound = new Audio('assets/sounds/24 Game Over.mp3');
         this.stageClearSound = new Audio('assets/sounds/07 Stage Clear.mp3');
         this.explosionSound = new Audio('assets/sounds/explosion.mp3');
+        this.brickSound = new Audio('assets/sounds/brick.mp3');
         this.background = undefined;
         this.pang = undefined;
         this.balls = [];
@@ -69,6 +71,7 @@ class Game {
         this.chrono.stopClick();
         this.sound.pause();
         this.sound2.pause();
+        this.sound3.pause();
        
         setTimeout(() => {
             if (!top10[9]) {
@@ -101,6 +104,7 @@ class Game {
             this.pang.winAnimation();
             this.sound.pause();
             this.sound2.pause();
+            this.sound3.pause();
             this.stageClearSound.play();
             this.stop();
             this.chrono.stopClick();
@@ -198,6 +202,7 @@ class Game {
             this.pang.spears.forEach(spear => {
                 if (spear.collides(structure)) {
                     structure.destroy = true;
+                    this.brickSound.play();
                     this.addScore(50);
                     setTimeout(() => this.structures = this.structures.filter(structure => !structure.destroy), 400)
                     this.pang.clearSpears();
@@ -216,13 +221,13 @@ class Game {
         switch (this.level) {
             case 1:
                 this.balls = [
-                    new Ball(this.ctx, 100, 100, 4, 'red', 2, 4),
-                    /* new Ball(this.ctx, 800, 100, 1, 'green', -2, 4),
+                    new Ball(this.ctx, 100, 100, 1, 'red', 2, 4),
+                    new Ball(this.ctx, 800, 100, 1, 'green', -2, 4),
                     new Ball(this.ctx, 100, 40, 4, 'red', 2, 0),
                     new Ball(this.ctx, 200, 40, 4, 'blue', -2, 0),
                     new Ball(this.ctx, 300, 40, 4, 'green', 2, 0),
                     new Ball(this.ctx, 350, 40, 4, 'red', -2, 0),
-                    new Ball(this.ctx, 500, 40, 4, 'blue', 2, 0), */
+                    new Ball(this.ctx, 500, 40, 4, 'blue', 2, 0),
                 ];
                 this.structures = [
                     new Structure(this.ctx, 20, 90),
@@ -238,6 +243,7 @@ class Game {
                 ];
                 break;
             case 2:
+                this.sound2.play();
                 setTimeout(() => this.balls.push(new Ball(this.ctx, 100, 100, 2, 'blue', 2, 4)), 2000);
                 setTimeout(() => this.balls.push(new Ball(this.ctx, 630, 110, 2, 'green', -2, 4)), 4000);
                 setTimeout(() => this.balls.push(new Ball(this.ctx, 630, 110, 2, 'green', -2, 4)), 6000);
@@ -252,12 +258,18 @@ class Game {
                 break;
 
             case 3:
+                this.sound3.play();
                 this.balls = [
-                    new Ball(this.ctx, Math.floor(Math.random() * 900))
+                    new Ball(this.ctx, Math.floor(Math.random() * 900), 100, 1, 'blue', 2, 4),
+                    new Ball(this.ctx, Math.floor(Math.random() * 900), 100, 2, 'red', -2, 4),
+                    new Ball(this.ctx, Math.floor(Math.random() * 900), 100, 2, 'green', -2, 4)
                 ]
-
-
-
+                this.structures = [
+                    new Structure(this.ctx, 320, 420),
+                    new Structure(this.ctx, 470, 420),
+                    new Structure(this.ctx, 620, 420)
+                ]
+                break;
         }
     }
 
@@ -299,4 +311,5 @@ class Game {
             this.lose();
         }
     }
+
 }

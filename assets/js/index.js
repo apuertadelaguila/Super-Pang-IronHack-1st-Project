@@ -56,7 +56,7 @@ function next () {
   game.nextLevel(); 
   game.start();
   game.chrono.startClick(printTime);
-  game.sound2.play();
+  /* game.sound2.play(); */
   nextWindow.style.display = "none";
   canvasInit.style.display = "flex";
   scoreGame.style.display = "flex";
