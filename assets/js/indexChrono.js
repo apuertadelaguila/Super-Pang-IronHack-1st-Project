@@ -1,8 +1,3 @@
-
-/* let secDec = document.getElementById('secDec');
-let secUni = document.getElementById('secUni'); */
-
-
 function printTime() {
     printSeconds();
 }

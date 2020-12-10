@@ -19,7 +19,6 @@ class Structure {
             this.height = this.structureSprite.frameHeight;
         }
         this.destroy = false;
-
         this.drawCount = 0;
     }
 
@@ -36,14 +35,11 @@ class Structure {
                 this.width,
                 this.height
             )
-            /* this.ctx.strokeRect(this.x, this.y, this.width, this.height) */
         }
         if (this.destroy) {
             this.animate(0, 0, 4, 8)
         }
-       
         this.drawCount++;
-
     }
 
     collides(element) {

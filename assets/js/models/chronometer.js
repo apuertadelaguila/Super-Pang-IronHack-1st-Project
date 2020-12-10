@@ -20,7 +20,6 @@ class Chronometer {
         return number < 10 ? `0${number}` : `${number}`;
       }
     
-  
     stopClick() {
       clearInterval(this.intervalId);
     }

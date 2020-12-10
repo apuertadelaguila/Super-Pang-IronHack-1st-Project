@@ -24,7 +24,6 @@ class Spear {
         }
         this.drawCount = 0;
         this.destroy = false;
-        
     }
 
     draw() {
@@ -43,10 +42,6 @@ class Spear {
             );
             this.drawCount++;
             this.animate();
-            /* this.ctx.strokeRect(this.spearX, this.spearY, this.spearW, this.spearH) */
-            
-            
-
         }
     }
 

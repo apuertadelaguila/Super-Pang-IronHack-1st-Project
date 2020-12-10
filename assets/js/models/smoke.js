@@ -18,7 +18,6 @@ class Smoke {
             this.width = this.smoke.frameWidth;
             this.height = this.smoke.frameHeight;
         }
-
         this.drawCount = 0;
     }
 
@@ -36,11 +35,9 @@ class Smoke {
                 this.width,
                 this.height
             ); 
-            /* this.ctx.strokeRect(this.x, this.y, this.smoke.width, this.smoke.height) */
         }
         this.animate(0, 0, 4, 10)
-        this.drawCount++;
-        
+        this.drawCount++; 
     }
 
 

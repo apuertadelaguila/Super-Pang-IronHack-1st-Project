@@ -78,9 +78,7 @@ class Pang {
         this.drawCount++;
         this.animate();
         this.clearSpears();
-
     }
-
 
     onKeyEvent(event) {
         const state = event.type === 'keydown';
@@ -94,9 +92,7 @@ class Pang {
             case KEY_FIRE:
                 this.movement.fire = state;
                 this.fire()
-                break;
-        
-                    
+                break;          
         }
     }
 
@@ -130,7 +126,6 @@ class Pang {
         } else {
             this.resetAnimation();
         }
-
     }
 
     animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency) {
@@ -163,8 +158,7 @@ class Pang {
         return this.x + this.sprite.width > element.x + 30 &&
             this.x < element.x + element.width - 30 &&
             this.y + this.sprite.height > element.y + 30 &&
-            this.y < element.y + element.height - 30;
-            
+            this.y < element.y + element.height - 30;        
     }  
 
     fire() {
@@ -176,6 +170,6 @@ class Pang {
     }
 
     clearSpears() {
-        this.spears = this.spears.filter(spear => !spear.destroy)
+        this.spears = this.spears.filter(spear => !spear.destroy);
     }
 }

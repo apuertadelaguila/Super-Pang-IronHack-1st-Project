@@ -13,7 +13,6 @@ class Background {
             this.background.height = this.ctx.canvas.height;
             this.width = this.ctx.canvas.width;
             this.height = this.ctx.canvas.height;
-
         }
     }
 

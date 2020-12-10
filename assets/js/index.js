@@ -31,6 +31,7 @@ function start () {
   game.start()
   game.chrono.startClick(printTime);
   game.mainAudio.pause();
+  game.mainAudio.currentTime = 0;
   game.sound.play();
   startWindow.style.display = "none";
   canvasInit.style.display = "flex";
@@ -40,7 +41,7 @@ function start () {
 }
 
 function gameOver () {
-  game = new Game('canvas-game');
+  game.restart();
   game.level = 1;
   game.start();
   game.chrono.startClick(printTime);
@@ -56,7 +57,6 @@ function next () {
   game.nextLevel(); 
   game.start();
   game.chrono.startClick(printTime);
-  /* game.sound2.play(); */
   nextWindow.style.display = "none";
   canvasInit.style.display = "flex";
   scoreGame.style.display = "flex";
@@ -65,14 +65,21 @@ function next () {
 }
 
 function home () {
-  game = new Game('canvas-game');
+  game.restart();
   highScores.style.display = "none";
   gameOverWindow.style.display = "none";
   startWindow.style.display = "flex";
   topScores.style.display = "none";
   winWindow.style.display = "none";
   game.chrono.reset();
-  game.mainAudio.play();
+  game.audioPlay();
+}
+
+function showScores () {
+  game.audioPlay();
+  startWindow.style.display = "none";
+  topScores.style.display = "flex";
+  displayRanking();
 }
 
 function displayRanking () {
@@ -86,14 +93,13 @@ function displayRanking () {
 window.addEventListener('load', () => {
   
     startButton.addEventListener('click', start);
-    bestScoresButton.addEventListener('click', game.showScores);
+    bestScoresButton.addEventListener('click', showScores);
     rankingHomeButton.addEventListener('click', home);
     continueButton.addEventListener('click', gameOver);
     reloadButton.addEventListener('click', home);
     nextWindowButton.addEventListener('click', next);
     homeGameOver.addEventListener('click', home);
     saveButton.addEventListener('click', game.addTop10);
-    
     
     document.addEventListener('keydown', (event) => {
       game.onKeyEvent(event);

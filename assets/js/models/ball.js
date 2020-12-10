@@ -42,11 +42,8 @@ class Ball {
                 this.y,
                 this.width,
                 this.height
-            );
-
-           /*  this.ctx.strokeRect(this.x, this.y, this.ballSprite.width, this.ballSprite.height)  */   
+            );  
         }
-        
         this.drawCount++;
     }
 
@@ -57,16 +54,13 @@ class Ball {
         this.x += this.vx;
         this.y += this.vy;
         
-
         if(this.x + this.width >= this.ctx.canvas.width) {
             this.x = this.ctx.canvas.width - this.width;
             this.vx *= -1;
-            
         }
         if(this.x <= 0) {
             this.x = 0 
             this.vx *= -1;
-            
         }
         if(this.y + this.height >= this.ctx.canvas.height) {
             this.y = this.ctx.canvas.height - this.height;
@@ -76,20 +70,17 @@ class Ball {
             this.y = 0;
             this.vy *= -1;
         }
-        
         if (this.vy >= 0) {
            this.vy = Math.min(7, this.vy);
         } else {
             this.vy = Math.max(-7, this.vy);
         }
-        /* console.log(this.vy) */
     }
 
     bounce(structure) {
         if (this.canBounce) {
             this.canBounce = false;
             this.vy *= -1;
-            /* this.y += this.vy > 0 ? ROUND_CORNER_SPACE : -ROUND_CORNER_SPACE; */
             if (this.y <= structure.y) {
                 this.y = structure.y - this.height -4; 
             } else {
@@ -112,6 +103,4 @@ class Ball {
                 new Ball(this.ctx, this.x + (this.width / 2), this.y, this.size + 1, this.color, -3, -3)
             ]
     }
-
-    
 }

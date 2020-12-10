@@ -16,6 +16,7 @@ class Game {
         this.stageClearSound = new Audio('assets/sounds/07 Stage Clear.mp3');
         this.explosionSound = new Audio('assets/sounds/explosion.mp3');
         this.brickSound = new Audio('assets/sounds/brick.mp3');
+        this.countDown = new Audio('assets/sounds/countdownSound.mp3');
         this.background = undefined;
         this.pang = undefined;
         this.balls = [];
@@ -29,7 +30,6 @@ class Game {
     onKeyEvent(event) {
         this.pang.onKeyEvent(event);
     }
-
 
     start() {
         if (!this.drawIntervalId) {
@@ -49,9 +49,7 @@ class Game {
         this.level = 0;
         this.scoreByLevel = {};
         this.ballCollision = false;
-        this.nextLevel();
-        this.start();
-
+        this.nextLevel();  
     }
 
     clear() {
@@ -72,6 +70,11 @@ class Game {
         this.sound.pause();
         this.sound2.pause();
         this.sound3.pause();
+        this.countDown.pause();
+        this.countDown.currentTime = 0;
+        this.sound.currentTime = 0;
+        this.sound2.currentTime = 0;
+        this.sound3.currentTime = 0;
        
         setTimeout(() => {
             if (!top10[9]) {
@@ -80,14 +83,14 @@ class Game {
                 scoreGame.style.display = "none";
                 chrono.style.display = "none";
                 scoreAfterGame.innerText = `Score: ${this.totalScore()}`;
+
             } else if (this.totalScore() > top10[9].score) {
                 canvasInit.style.display = "none";
                 highScores.style.display = "flex";
                 scoreGame.style.display = "none";
                 chrono.style.display = "none";
                 scoreAfterGame.innerText = `Score: ${this.totalScore()}`;
-                
-               
+                 
             } else {
                 canvasInit.style.display = "none";
                 gameOverWindow.style.display = "flex";
@@ -105,9 +108,13 @@ class Game {
             this.sound.pause();
             this.sound2.pause();
             this.sound3.pause();
+            this.sound.currentTime = 0;
+            this.sound2.currentTime = 0;
+            this.sound3.currentTime = 0;
             this.stageClearSound.play();
             this.stop();
             this.chrono.stopClick();
+
             setTimeout(() => {
                 canvasInit.style.display = "none";
                 scoreGame.style.display = "none";
@@ -122,7 +129,6 @@ class Game {
                 } else if (this.level == this.maxLevel) {
                     winWindow.style.display = "flex";
                     scoreWin.innerText = `Score: ${this.totalScore()}`;
-                
                 } else {
                     nextWindow.style.display = "flex";
                     nextScore.style.display = "flex";
@@ -138,7 +144,6 @@ class Game {
         this.balls.forEach(ball => ball.move());
     }
 
-
     draw() {
         this.background.draw();
         this.balls.forEach(ball => ball.draw());
@@ -147,8 +152,6 @@ class Game {
         this.structures.forEach(structure => structure.draw())
         this.smokes.forEach(smoke => smoke.draw())
     }
-
-
 
     checkCollisions() {
         this.balls.forEach(ball => {
@@ -188,9 +191,9 @@ class Game {
                         this.addScore(400);
                     }
                     this.pang.clearSpears();
-
                 }
             })
+
             this.structures.forEach(structure => {
 
                 if (structure.collides(ball)) {
@@ -198,6 +201,7 @@ class Game {
                 }
             })
         })
+
         this.structures.forEach(structure => {
             this.pang.spears.forEach(spear => {
                 if (spear.collides(structure)) {
@@ -208,7 +212,6 @@ class Game {
                     this.pang.clearSpears();
                 }
             })
-
         })
         scoreGame.innerText = `SCORE: ${this.scoreByLevel[this.level] || 0}`;
     }
@@ -218,6 +221,7 @@ class Game {
         this.pang = new Pang(this.ctx, (this.canvas.width / 2), 450);
         this.background = new Background(this.ctx, this.level);
         this.chrono = new Chronometer();
+
         switch (this.level) {
             case 1:
                 this.balls = [
@@ -300,16 +304,25 @@ class Game {
         home();
     }
 
-    showScores () {
-        startWindow.style.display = "none";
-        topScores.style.display = "flex";
-        displayRanking();
-    }
-
     timerEnd() {
         if (this.chrono.currentTime <= 0) {
             this.lose();
         }
+        this.countdownAudio(); 
     }
 
+    audioPlay () {
+        if (this.mainAudio.paused) {
+            this.mainAudio.play();
+        }
+    }
+
+    countdownAudio () {
+        if (this.countDown.paused && this.chrono.currentTime === 10) {
+            this.countDown.play();
+        } else if (this.chrono.currentTime === 0) {
+            this.countDown.pause();
+            this.countDown.currentTime = 0;
+        }
+    }
 }
