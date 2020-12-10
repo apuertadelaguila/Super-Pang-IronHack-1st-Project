@@ -5,7 +5,7 @@ class Smoke {
         this.y = y;
 
         this.smoke = new Image();
-        this.smoke.src = `img/sprites/smokes.png`;
+        this.smoke.src = `assets/img/sprites/smokes.png`;
         this.smoke.horizontalFrameIndex = 0;
         this.smoke.verticalFrameIndex = 0;
         this.smoke.horizontalFrames = 5;

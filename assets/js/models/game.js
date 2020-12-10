@@ -6,25 +6,20 @@ class Game {
         this.ctx = this.canvas.getContext('2d');
         this.level = 0;
         this.maxLevel = 2;
-
         this.drawIntervalId = undefined;
         this.fps = 1000 / 60;
-        this.sound = new Audio('sounds/02 Stage 1.mp3');
-        this.sound2 = new Audio('sounds/stage2.mp3');
-        this.gameOverSound = new Audio('sounds/24 Game Over.mp3');
-        this.stageClearSound = new Audio('sounds/07 Stage Clear.mp3');
-        this.explosionSound = new Audio('sounds/explosion.mp3');
-
-
-
+        this.mainAudio = new Audio('assets/sounds/ModeSelect.mp3');
+        this.sound = new Audio('assets/sounds/02 Stage 1.mp3');
+        this.sound2 = new Audio('assets/sounds/stage2.mp3');
+        this.gameOverSound = new Audio('assets/sounds/24 Game Over.mp3');
+        this.stageClearSound = new Audio('assets/sounds/07 Stage Clear.mp3');
+        this.explosionSound = new Audio('assets/sounds/explosion.mp3');
         this.background = undefined;
         this.pang = undefined;
         this.balls = [];
         this.structures = [];
         this.scoreByLevel = {};
-
         this.smokes = [];
-
         this.ballCollision = false;
         this.nextLevel();
     }
@@ -299,5 +294,4 @@ class Game {
             this.lose();
         }
     }
-
 }

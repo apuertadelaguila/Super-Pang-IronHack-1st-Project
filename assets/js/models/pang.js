@@ -6,10 +6,10 @@ class Pang {
         this.vx = 0;
         this.vy= 0;
 
-        this.shotSound = new Audio('sounds/spear.mp3')
+        this.shotSound = new Audio('assets/sounds/spear.mp3')
 
         this.sprite = new Image();
-        this.sprite.src = 'img/sprites/pang2.png';
+        this.sprite.src = 'assets/img/sprites/pang2.png';
         this.sprite.isReady = false;
         this.sprite.horizontalFrames = 2;
         this.sprite.verticalFrames = 4;
@@ -24,7 +24,7 @@ class Pang {
         }
 
         this.shot = new Image(),
-        this.shot.src = 'img/sprites/shot.png';
+        this.shot.src = 'assets/img/sprites/shot.png';
         this.shot.isReady = false;
         this.shot.horizontalFrames = 1;
         this.shot.verticalFrames = 1;

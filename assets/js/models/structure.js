@@ -5,7 +5,7 @@ class Structure {
         this.y = y;
 
         this.structureSprite = new Image();
-        this.structureSprite.src = 'img/sprites/structures.png';
+        this.structureSprite.src = 'assets/img/sprites/structures.png';
         this.structureSprite.isReady = false;
         this.structureSprite.horizontalFrames = 5;
         this.structureSprite.verticalFrames = 1;

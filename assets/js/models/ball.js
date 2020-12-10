@@ -13,7 +13,7 @@ class Ball {
         
 
         this.ballSprite = new Image();
-        this.ballSprite.src = `img/sprites/balls/${size}${color}ball.png`;
+        this.ballSprite.src = `assets/img/sprites/balls/${size}${color}ball.png`;
         this.ballSprite.horizontalFrameIndex = 0;
         this.ballSprite.verticalFrameIndex = 0;
         this.ballSprite.horizontalFrames = 1;

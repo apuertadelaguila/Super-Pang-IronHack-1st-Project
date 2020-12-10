@@ -30,6 +30,7 @@ const top10 = JSON.parse(localStorage.getItem("top10")) || [];
 function start () {
   game.start()
   game.chrono.startClick(printTime);
+  game.mainAudio.pause();
   game.sound.play();
   startWindow.style.display = "none";
   canvasInit.style.display = "flex";
@@ -71,6 +72,7 @@ function home () {
   topScores.style.display = "none";
   winWindow.style.display = "none";
   game.chrono.reset();
+  game.mainAudio.play();
 }
 
 function displayRanking () {
@@ -80,7 +82,6 @@ function displayRanking () {
   })
   .join("");
 }
-
 
 window.addEventListener('load', () => {
   

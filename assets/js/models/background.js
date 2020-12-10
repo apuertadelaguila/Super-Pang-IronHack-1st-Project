@@ -5,7 +5,7 @@ class Background {
         this.y = 0;
        
         this.background = new Image();
-        this.background.src = `img/backgrounds/bg${level}.png`;
+        this.background.src = `assets/img/backgrounds/bg${level}.png`;
         this.background.isReady = false;
         this.background.onload = () => {
             this.background.isReady = true;

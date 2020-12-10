@@ -5,7 +5,7 @@ class Spear {
         this.y = y;
 
         this.sprite = new Image();
-        this.sprite.src = 'img/sprites/spears.png';
+        this.sprite.src = 'assets/img/sprites/spears.png';
         this.sprite.isReady = false;
         this.sprite.horizontalFrames = 70;
         this.sprite.verticalFrames = 1;
