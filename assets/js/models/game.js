@@ -5,7 +5,7 @@ class Game {
         this.canvas.height = 537;
         this.ctx = this.canvas.getContext('2d');
         this.level = 0;
-        this.maxLevel = 2;
+        this.maxLevel = 3;
         this.drawIntervalId = undefined;
         this.fps = 1000 / 60;
         this.mainAudio = new Audio('assets/sounds/ModeSelect.mp3');
@@ -250,6 +250,11 @@ class Game {
                     new Structure(this.ctx, 630, 210),
                 ]
                 break;
+
+            case 3:
+                this.balls = [
+                    new Ball(this.ctx, Math.floor(Math.random() * 900))
+                ]
 
 
 
