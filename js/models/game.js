@@ -5,13 +5,15 @@ class Game {
         this.canvas.height = 537;
         this.ctx = this.canvas.getContext('2d');
         this.level = 0;
+        this.maxLevel = 2;
 
         this.drawIntervalId = undefined;
         this.fps = 1000 / 60;
         this.sound = new Audio('sounds/02 Stage 1.mp3');
+        this.sound2 = new Audio('sounds/stage2.mp3');
         this.gameOverSound = new Audio('sounds/24 Game Over.mp3');
-        this.stageClearSound = new Audio('sounds/07 Stage Clear.mp3')
-        this.explosionSound = new Audio('sounds/explosion.mp3')
+        this.stageClearSound = new Audio('sounds/07 Stage Clear.mp3');
+        this.explosionSound = new Audio('sounds/explosion.mp3');
 
 
 
@@ -40,7 +42,7 @@ class Game {
                 this.checkStageComplete();
                 this.draw();
                 this.checkCollisions();
-                /* this.sound.play(); */
+                this.timerEnd();
             }, this.fps)
         }
     }
@@ -64,35 +66,61 @@ class Game {
         this.drawIntervalId = undefined;
     }
 
-    loose() {
+    lose() {
         this.pang.loseAnimation();
         this.draw();
         this.stop();
         this.gameOverSound.play();
+        this.chrono.stopClick();
+        this.sound.pause();
+        this.sound2.pause();
+       
         setTimeout(() => {
-            canvasInit.style.display = "none";
-            gameOverWindow.style.display = "flex";
-            scoreGame.style.display = "none";
-            scoreGameOver.style.display = "flex";
-            scoreGameOver.innerText = `Score: ${this.totalScore()}`;
-
-        }, 3000)
-
+            if (!top10[9]) {
+                canvasInit.style.display = "none";
+                highScores.style.display = "flex";
+                scoreGame.style.display = "none";
+                chrono.style.display = "none";
+                scoreAfterGame.innerText = `Score: ${this.totalScore()}`;
+            } else if (this.totalScore() > top10[9].score) {
+                canvasInit.style.display = "none";
+                highScores.style.display = "flex";
+                scoreGame.style.display = "none";
+                chrono.style.display = "none";
+                scoreAfterGame.innerText = `Score: ${this.totalScore()}`;
+                
+               
+            } else {
+                canvasInit.style.display = "none";
+                gameOverWindow.style.display = "flex";
+                scoreGame.style.display = "none";
+                 chrono.style.display = "none";
+                scoreGameOver.style.display = "flex";
+                scoreGameOver.innerText = `Score: ${this.totalScore()}`;
+            }
+        }, 3000);
     }
 
     checkStageComplete() {
         if (this.balls.length === 0 && !this.ballCollision) {
             this.pang.winAnimation();
             this.sound.pause();
+            this.sound2.pause();
             this.stageClearSound.play();
             this.stop();
+            this.chrono.stopClick();
             setTimeout(() => {
                 canvasInit.style.display = "none";
                 scoreGame.style.display = "none";
-                if (this.totalScore() > 8000 && this.level == 2) {
+                chrono.style.display = "none";
+               
+                if (!top10[9] && this.level == this.maxLevel){
                     highScores.style.display = "flex";
                     scoreAfterGame.innerText = `Score: ${this.totalScore()}`;
-                } else if (this.level == 2) {
+                } else if (top10[9] && top10[9].score < this.totalScore() && this.level == this.maxLevel) {
+                    highScores.style.display = "flex";
+                    scoreAfterGame.innerText = `Score: ${this.totalScore()}`;
+                } else if (this.level == this.maxLevel) {
                     winWindow.style.display = "flex";
                     scoreWin.innerText = `Score: ${this.totalScore()}`;
                 
@@ -126,7 +154,7 @@ class Game {
     checkCollisions() {
         this.balls.forEach(ball => {
             if (this.pang.collides(ball)) {
-                this.loose();
+                this.lose();
             }
         })
 
@@ -189,16 +217,17 @@ class Game {
         this.level++;
         this.pang = new Pang(this.ctx, (this.canvas.width / 2), 450);
         this.background = new Background(this.ctx, this.level);
+        this.chrono = new Chronometer();
         switch (this.level) {
             case 1:
                 this.balls = [
-                    new Ball(this.ctx, 100, 100, 1, 'red', 2, 4),
-                    new Ball(this.ctx, 800, 100, 1, 'green', -2, 4),
+                    new Ball(this.ctx, 100, 100, 4, 'red', 2, 4),
+                    /* new Ball(this.ctx, 800, 100, 1, 'green', -2, 4),
                     new Ball(this.ctx, 100, 40, 4, 'red', 2, 0),
                     new Ball(this.ctx, 200, 40, 4, 'blue', -2, 0),
                     new Ball(this.ctx, 300, 40, 4, 'green', 2, 0),
                     new Ball(this.ctx, 350, 40, 4, 'red', -2, 0),
-                    new Ball(this.ctx, 500, 40, 4, 'blue', 2, 0),
+                    new Ball(this.ctx, 500, 40, 4, 'blue', 2, 0), */
                 ];
                 this.structures = [
                     new Structure(this.ctx, 20, 90),
@@ -263,6 +292,12 @@ class Game {
         startWindow.style.display = "none";
         topScores.style.display = "flex";
         displayRanking();
+    }
+
+    timerEnd() {
+        if (this.chrono.currentTime <= 0) {
+            this.lose();
+        }
     }
 
 }

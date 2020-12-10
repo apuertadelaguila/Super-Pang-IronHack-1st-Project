@@ -7,6 +7,7 @@ const continueButton = document.querySelector('#restart button');
 const winWindow = document.getElementById('win');
 const reloadButton = document.querySelector('#win button');
 const scoreGame = document.querySelector('.score');
+const chrono = document.querySelector('.chrono');
 const scoreGameOver = document.querySelector('.scoreGameOver');
 const scoreWin = document.querySelector('.scoreWin');
 const nextWindow = document.getElementById('next');
@@ -22,30 +23,44 @@ const rankingList = document.querySelector('#ranking ul');
 const bestScoresButton = document.querySelector('#start :nth-child(2)');
 const rankingHomeButton = document.querySelector('#ranking button');
 const top10List = document.querySelector('.top10-list');
+let secDec = document.getElementById('secDec');
+let secUni = document.getElementById('secUni');
 const top10 = JSON.parse(localStorage.getItem("top10")) || [];
 
 function start () {
   game.start()
+  game.chrono.startClick(printTime);
+  game.sound.play();
   startWindow.style.display = "none";
   canvasInit.style.display = "flex";
   scoreGame.style.display = "flex";
+  chrono.style.display = "flex";
+  game.chrono.reset();
 }
 
 function gameOver () {
   game = new Game('canvas-game');
   game.level = 1;
   game.start();
+  game.chrono.startClick(printTime);
+  game.sound.play();
   gameOverWindow.style.display = "none";
   canvasInit.style.display = "flex";
   scoreGame.style.display = "flex";
+  chrono.style.display = "flex";
+  game.chrono.reset();
 }
 
 function next () {
-  game.nextLevel();
+  game.nextLevel(); 
   game.start();
+  game.chrono.startClick(printTime);
+  game.sound2.play();
   nextWindow.style.display = "none";
   canvasInit.style.display = "flex";
   scoreGame.style.display = "flex";
+  chrono.style.display = "flex";
+  game.chrono.reset();
 }
 
 function home () {
@@ -55,6 +70,7 @@ function home () {
   startWindow.style.display = "flex";
   topScores.style.display = "none";
   winWindow.style.display = "none";
+  game.chrono.reset();
 }
 
 function displayRanking () {
