@@ -12,3 +12,6 @@ This is the first github project during my Ironhack Web Development Bootcamp!
 I programed an arcade game Pang style in which I practice the object oriented programming (OOP) in a JavaScript environment.
 
 I'm glad to introduce you my project and my effort to improve!
+
+![20201210_133024](https://user-images.githubusercontent.com/71900287/101773505-29549000-3aed-11eb-9fed-a3cd7a304594.gif)
+
