@@ -1,7 +1,7 @@
 # Super-Pang-IronHack-1st-Project
 Super Pang arcade game.
 
-https://aguiluxo91.github.io/Super-Pang-IronHack-1st-Proyect/index.html
+https://aguiluxo91.github.io/Super-Pang-IronHack-1st-Project/index.html
 
 ![pangArcade](https://user-images.githubusercontent.com/71900287/101769958-0c698e00-3ae8-11eb-9ea1-716179be2c03.png)
 
