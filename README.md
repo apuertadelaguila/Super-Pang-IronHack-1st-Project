@@ -7,7 +7,7 @@ https://aguiluxo91.github.io/Super-Pang-IronHack-1st-Project/index.html
 
 Hi Everyone!
 
-This is the first github project during my Ironhack Web Development Bootcamp!
+This is the first project during my Ironhack Web Development Bootcamp!
 
 I programed an arcade game Pang style in which I practice the object oriented programming (OOP) in a JavaScript environment.
 
